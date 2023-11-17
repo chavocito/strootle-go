@@ -13,6 +13,7 @@ import (
 const version = "1.0.0"
 const cssVersion = "1"
 
+// env configuration
 type config struct {
 	port int
 	env  string
@@ -31,6 +32,7 @@ type application struct {
 	infoLog       *log.Logger
 	errorLog      *log.Logger
 	templateCache map[string]*template.Template
+	version       string
 }
 
 func (app *application) serve() error {
@@ -43,7 +45,7 @@ func (app *application) serve() error {
 		WriteTimeout:      5 * time.Second,
 	}
 
-	app.infoLog.Println("Starting HTTP server in %s mode on port %d", app.config.env, app.config.port)
+	app.infoLog.Println(fmt.Sprintf("Starting HTTP server in %s mode on port %d", app.config.env, app.config.port))
 
 	return srv.ListenAndServe()
 }
